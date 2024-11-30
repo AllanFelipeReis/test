@@ -10,7 +10,6 @@ db_config = {
     'port': 3306,
 }
 
-
 # Função para carregar e normalizar os dados do Excel para o banco de dados
 def load_excel_to_db(file_path, table_name, sep=";"):
     try:
@@ -54,9 +53,9 @@ def load_excel_to_db(file_path, table_name, sep=";"):
 # Arquivos e tabelas a serem processados
 files_and_tables = [
     {"file_path": "escolas.csv", "table_name": "escola"},
-    {"file_path": "matriculas.csv", "table_name": "matricula"},
     {"file_path": "docentes.csv", "table_name": "docente"},
     {"file_path": "turmas.csv", "table_name": "turma"},
+    {"file_path": "matriculas.csv", "table_name": "matricula"},
     {"file_path": "ideb.csv", "table_name": "ideb", "separator": ";"},
 ]
 
