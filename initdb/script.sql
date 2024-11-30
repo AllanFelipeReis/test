@@ -1,12 +1,12 @@
 -- Versionamento 2024.10
 
-CREATE DATABASE censo_escolar;
+-- CREATE DATABASE freedb_teste_teste;
 
-use censo_escolar;
+use freedb_teste_teste;
 
-SELECT @@global.secure_file_priv;
+-- SELECT @@global.secure_file_priv;
 
-use censo_escolar;
+use freedb_teste_teste;
 
 create table docente
 (
@@ -145,8 +145,8 @@ NU_ANO_CENSO int
 );
  
 SET sql_mode = "";
-load data infile 'C:\\ProgramData\\MySQL\\\MySQL Server 8.0\\Uploads\\Docentes Rio Claro 2017.csv'
-into table censo_escolar.docente
+load data infile 'C:\\Users\\allan\\Downloads\\censo-escolarDocentes Rio Claro 2017.csv'
+into table freedb_teste_teste.docente
 fields terminated by '|'
 enclosed by '"'
 lines terminated by '\r\n'
@@ -324,8 +324,8 @@ NU_ANO_CENSO int
 , IN_ESP_EXCLUSIVA_PROF bool
 );
 
-load data infile 'C:\\ProgramData\\MySQL\\\MySQL Server 8.0\\Uploads\\Escolas Rio Claro 2017.csv'
-into table censo_escolar.escola
+load data infile 'C:\\Users\\allan\\Downloads\\censo-escolarEscolas Rio Claro 2017.csv'
+into table freedb_teste_teste.escola
 fields terminated by '|'
 enclosed by '"'
 lines terminated by '\r\n'
@@ -425,8 +425,8 @@ NU_ANO_CENSO int
 );
 
 SET sql_mode = "";
-load data infile 'C:\\ProgramData\\MySQL\\\MySQL Server 8.0\\Uploads\\Turmas Rio Claro 2017.csv'
-into table censo_escolar.turma
+load data infile 'C:\\Users\\allan\\Downloads\\censo-escolarTurmas Rio Claro 2017.csv'
+into table freedb_teste_teste.turma
 fields terminated by '|'
 enclosed by '"'
 lines terminated by '\r\n'
@@ -530,8 +530,8 @@ NU_ANO_CENSO int
 );
 
 SET sql_mode = "";
-load data infile 'C:\\ProgramData\\MySQL\\\MySQL Server 8.0\\Uploads\\Matriculas Rio Claro 2017.csv'
-into table censo_escolar.matricula
+load data infile 'C:\\Users\\allan\\Downloads\\censo-escolarMatriculas Rio Claro 2017.csv'
+into table freedb_teste_teste.matricula
 fields terminated by '|'
 enclosed by '"'
 lines terminated by '\r\n'
@@ -548,8 +548,8 @@ IDEB_EM float
 );
 
 SET sql_mode = "";
-load data infile 'C:\\ProgramData\\MySQL\\\MySQL Server 8.0\\Uploads\\ideb_2017_rio claro.csv'
-into table censo_escolar.ideb
+load data infile 'C:\\Users\\allan\\Downloads\\censo-escolarideb_2017_rio claro.csv'
+into table freedb_teste_teste.ideb
 fields terminated by '|'
 enclosed by '"'
 lines terminated by '\r\n'
@@ -623,29 +623,29 @@ ALTER TABLE ideb ADD CONSTRAINT FOREIGN KEY (CO_ENTIDADE) REFERENCES escola(CO_E
 /*
 -- EXERCICIOS DQL
 
-Select * from censo_escolar.escola;
+Select * from freedb_teste_teste.escola;
 
-Select CO_ENTIDADE, NO_ENTIDADE from censo_escolar.escola;
+Select CO_ENTIDADE, NO_ENTIDADE from freedb_teste_teste.escola;
 
-Select * from censo_escolar.turma where co_entidade = 35021817;
+Select * from freedb_teste_teste.turma where co_entidade = 35021817;
 
-Select * from censo_escolar.matricula where in_autismo = true OR in_def_intelectual = true;
+Select * from freedb_teste_teste.matricula where in_autismo = true OR in_def_intelectual = true;
 
-Select * from censo_escolar.docente  where co_entidade = 35021817 and NU_IDADE <= 45;
+Select * from freedb_teste_teste.docente  where co_entidade = 35021817 and NU_IDADE <= 45;
 
-Select * from censo_escolar.escola where TP_SITUACAO_FUNCIONAMENTO != 1;
+Select * from freedb_teste_teste.escola where TP_SITUACAO_FUNCIONAMENTO != 1;
 
-Select distinct tp_etapa_ensino from censo_escolar.turma; -- Select tp_etapa_ensino from censo_escolar.turma group by;
+Select distinct tp_etapa_ensino from freedb_teste_teste.turma; -- Select tp_etapa_ensino from freedb_teste_teste.turma group by;
 */
 
 
 -- AULA 21/09
-CREATE VIEW Escolas_Ativas AS SELECT * FROM Escola WHERE TP_SITUACAO_FUNCIONAMENTO =1;
+CREATE VIEW Escolas_Ativas AS SELECT * FROM escola WHERE TP_SITUACAO_FUNCIONAMENTO =1;
 
-CREATE VIEW Colunas_Usadas_Escola AS SELECT NO_ENTIDADE, CO_ENTIDADE, DT_ANO_LETIVO_INICIO, DT_ANO_LETIVO_TERMINO  FROM Escola;
-CREATE VIEW Colunas_Usadas_Matricula AS SELECT ID_MATRICULA, NU_IDADE FROM Matricula;
-CREATE VIEW Colunas_Usadas_Turma AS SELECT NU_MATRICULAS, NO_TURMA FROM Turma;
-CREATE VIEW Colunas_Usadas_Docente AS SELECT CO_PESSOA_FISICA, NU_IDADE_REFERENCIA, TP_SEXO FROM Docente;
+CREATE VIEW Colunas_Usadas_Escola AS SELECT NO_ENTIDADE, CO_ENTIDADE, DT_ANO_LETIVO_INICIO, DT_ANO_LETIVO_TERMINO  FROM escola;
+CREATE VIEW Colunas_Usadas_Matricula AS SELECT ID_MATRICULA, NU_IDADE FROM matricula;
+CREATE VIEW Colunas_Usadas_Turma AS SELECT NU_MATRICULAS, NO_TURMA FROM turma;
+CREATE VIEW Colunas_Usadas_Docente AS SELECT CO_PESSOA_FISICA, NU_IDADE_REFERENCIA, TP_SEXO FROM docente;
 
 CREATE VIEW Num_Professores_Escolas_Ativas AS 
 	SELECT
@@ -660,7 +660,7 @@ CREATE VIEW Num_Professores_Escolas_Ativas AS
 			WHEN e.TP_DEPENDENCIA = 4 THEN 'Privada'
         END AS TP_DEPENDENCIA,
 	COUNT(DISTINCT d.CO_PESSOA_FISICA) AS TOTAL_DOCENTES
-	FROM Escola e
+	FROM escola e
     JOIN docente d ON d.CO_ENTIDADE = e.CO_ENTIDADE
     WHERE TP_SITUACAO_FUNCIONAMENTO = 1;
 
