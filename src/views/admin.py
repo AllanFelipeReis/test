@@ -1,5 +1,5 @@
 import streamlit as st
-from database import get_users, insert_user, delete_user
+from controllers.user import get_all_users, create_user, delete_user
 
 
 def show_admin():
@@ -12,11 +12,11 @@ def show_admin():
         password = st.text_input("Senha", type="password")
         submitted = st.form_submit_button("Adicionar Usuário")
         if submitted and username and password:
-            insert_user(username, password)
+            create_user(username, password)
             st.success("Usuário adicionado com sucesso!")
 
     # Listar usuários
     st.markdown("### Usuários Cadastrados")
-    users = get_users()
+    users = get_all_users()
     for user in users:
         st.write(f"Usuário: {user['username']}")
