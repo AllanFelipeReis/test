@@ -19,13 +19,13 @@ else:
             st.Page("views/dashboards.py", title="Dashboard", icon=":material/dashboard:", default=True),
         ],
         "Usuários": [
-            st.Page("views/users/list.py", title="Listagem", icon=":material/group:"),
-            st.Page("views/users/create.py", title="Cadastro", icon=":material/person_add:"),
-            st.Page("views/users/update.py", title="Alteração", icon=":material/person_edit:"),
+            st.Page("views/users/user-list.py", title="Listagem", icon=":material/group:"),
+            st.Page("views/users/user-create.py", title="Cadastro", icon=":material/person_add:"),
+            st.Page("views/users/user-update.py", title="Alteração", icon=":material/person_edit:"),
         ],
         "Bookmarks": [
-            # st.Page("usuarios/cadastro_usuario.py", title="Cadastro Usuário", icon=":material/person_add:"),
-            # st.Page("usuarios/alteracao_usuario.py", title="Alteração Usuário", icon=":material/person_edit:")
+            st.Page("views/bookmarks/bookmark-list.py", title="Listagem", icon=":material/bookmark:"),
+            st.Page("views/bookmarks/bookmark-create.py", title="Cadastro", icon=":material/bookmark_add:")
         ],
         "Escolas": [
             # st.Page("views/users/list.py", title="Usuários", icon=":material/group:"),
@@ -41,8 +41,6 @@ else:
         #     st.Page("escolas/alunos_por_nivel_de_ensino.py", title="Alunos por Nível", icon=":material/dashboard:"),
         # ]
     }
-
-
 
     # Navegação com ícones e páginas
     pg = st.navigation(pages)
