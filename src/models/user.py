@@ -1,6 +1,5 @@
-
 import hashlib
-from core.connection import get_connection
+from src.core.connection import get_connection
 
 # Função CREATE (Inserir usuário)
 def create_user(name, email, password, is_adm, birthday):
@@ -12,7 +11,8 @@ def create_user(name, email, password, is_adm, birthday):
                 INSERT INTO usuario (nome, email, senha, administrador, data_nascimento)
                 VALUES (%s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (name, email, hashed_password, is_adm, birthday))
+            cursor.execute(
+                query, (name, email, hashed_password, is_adm, birthday))
             connection.commit()
     finally:
         connection.close()
@@ -52,15 +52,15 @@ def update_user(user_id, name, email, password=None, birthday=None, is_adm=None)
                 hashed_password = hash_password(password)
                 set_clauses.append("senha = %s")
                 values.append(hashed_password)
-            
+
             if birthday:
                 set_clauses.append("data_nascimento = %s")
                 values.append(birthday)
-            
+
             if is_adm is not None:
                 set_clauses.append("administrador = %s")
                 values.append(is_adm)
-            
+
             # Adiciona o WHERE
             set_query = ", ".join(set_clauses)
             query = f"UPDATE usuario SET {set_query} WHERE id = %s"
@@ -94,7 +94,7 @@ def get_user_by_email(email):
     finally:
         connection.close()
 
-# Função para criar hash SHA-1
+# Função para criar hash SHA-1s
 def hash_password(password):
     sha1_hash = hashlib.sha1()
     sha1_hash.update(password.encode('utf-8'))
@@ -104,6 +104,6 @@ def hash_password(password):
 def check_password(password, stored_hash):
     # Cria o hash da senha fornecida
     password_hash = hash_password(password)
-    
+
     # Compara o hash gerado com o hash armazenado
     return password_hash == stored_hash

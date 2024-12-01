@@ -1,5 +1,5 @@
 import streamlit as st
-from controllers.user import list_users
+from src.controllers.user import list_users
 import pandas as pd
 
 st.title("Gerenciamento de Usuários")

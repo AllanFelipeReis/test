@@ -1,22 +1,27 @@
 import streamlit as st
-from controllers.bookmarks import add_bookmark
-from controllers.schools import list_schools
+from src.controllers.bookmarks import add_bookmark
+from src.controllers.schools import list_schools
 from datetime import date
+import pandas as pd
 
 st.title("Gerenciamento de Bookmarks")
 st.subheader("Criação de Bookmark")
 
+schools = list_schools()
 
+if schools:
+    df = pd.DataFrame(schools)
+    user_id = st.session_state.user.get("id")
 
-# Formulário para adicionar usuário
-with st.form("add_user_form"):
-    name = st.text_input("Nome do Usuário")
-    email = st.text_input("E-mail do Usuário")
-    birthday = st.date_input("Data de Nascimento", min_value=date(1900, 1, 1), max_value=date.today())
-    is_adm = st.checkbox("Administrador?")
-    password = st.text_input("Senha", type="password")
-    submitted = st.form_submit_button("Adicionar Usuário")
-    
-    if submitted and name and email and password:
-        add_bookmark(name, email, password, is_adm=is_adm, birthday=birthday)
-        st.success("Usuário adicionado com sucesso!")
+    with st.form("add_bookmark_form"):
+        selected_school = st.selectbox(
+            "Selecione Sua Escola Favorita",
+            options=df.itertuples(index=False),
+            format_func=lambda u: u.NO_ENTIDADE
+        )
+        submitted = st.form_submit_button("Adicionar Bookmark")
+        
+        if submitted and selected_school and user_id:
+            school_id = selected_school.CO_ENTIDADE
+            add_bookmark(user_id, school_id)
+            st.success("Bookmark adicionado com sucesso!")

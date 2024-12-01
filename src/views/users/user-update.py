@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-from controllers.user import list_users, get_user, update_user
+from src.controllers.user import list_users, get_user, update_user
 import pandas as pd
 
 st.title("Gerenciamento de Usuários")

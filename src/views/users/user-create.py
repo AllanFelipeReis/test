@@ -1,5 +1,5 @@
 import streamlit as st
-from controllers.user import add_user
+from src.controllers.user import add_user
 from datetime import date
 
 st.title("Gerenciamento de Usuários")

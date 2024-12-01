@@ -1,5 +1,5 @@
 import streamlit as st
-from controllers.bookmarks import list_bookmarks
+from src.controllers.bookmarks import list_bookmarks
 import pandas as pd
 
 st.title("Gerenciamento de Bookmarks")

@@ -1,4 +1,4 @@
-from models.bookmarks import create_bookmark, get_all_bookmarks, get_bookmark_by_id, delete_bookmark as _delete_bookmark
+from src.models.bookmarks import create_bookmark, get_all_bookmarks, get_bookmark_by_id, delete_bookmark as _delete_bookmark
 
 # Função para adicionar um novo bookmark
 def add_bookmark(user_id, school_id):

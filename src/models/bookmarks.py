@@ -1,11 +1,11 @@
-from core.connection import get_connection
+from src.core.connection import get_connection
 
 # Função CREATE (Inserir bookmark)
 def create_bookmark(user_id, school_id):
     connection = get_connection()
     try:
         with connection.cursor() as cursor:
-            query = "INSERT INTO bookmark (ID_USUARIO, CODIGO_ESCOLA) VALUES (%s, %s)"
+            query = "INSERT INTO bookmark (id_usuario, id_escola) VALUES (%s, %s)"
             cursor.execute(query, (user_id, school_id))
             connection.commit()
     finally:
@@ -17,7 +17,7 @@ def get_bookmark_by_id(bookmark_id):
     try:
         with connection.cursor(dictionary=True) as cursor:
             query = "SELECT * FROM bookmark WHERE id = %s"
-            cursor.execute(query)
+            cursor.execute(query, (bookmark_id,))
             return cursor.fetchone()
     finally:
         connection.close()

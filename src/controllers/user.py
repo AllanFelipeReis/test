@@ -1,4 +1,4 @@
-from models.user import get_user_by_email, check_password, create_user, get_all_users, get_user_by_id, update_user as _update_user, delete_user as _delete_user
+from src.models.user import get_user_by_email, check_password, create_user, get_all_users, get_user_by_id, update_user as _update_user, delete_user as _delete_user
 
 # Função para adicionar um novo usuário
 def add_user(name, email, password, is_adm=False, birthday=None):
