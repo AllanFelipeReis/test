@@ -41,6 +41,8 @@ else:
         ]
     }
 
-    # Navegação com ícones e páginas
+    if not st.session_state.user.get("administrador"):
+        pages.pop("Usuários", None) 
+        
     pg = st.navigation(pages)
     pg.run()
